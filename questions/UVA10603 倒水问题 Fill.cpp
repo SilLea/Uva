@@ -1,6 +1,6 @@
 /*
-	Uva10603 µ¹Ë®ÎÊÌâ
-
+	Uva10603 å€’æ°´é—®é¢˜
+	priority_queueçš„ä½¿ç”¨,bfsçš„åˆä¸€å˜ç§ä¼˜åŒ–visæ•°ç»„,é€šè¿‡å…¶ä¸­ä¸¤ä¸ªå¯ä»¥æ±‚å‡ºç¬¬ä¸‰ä¸ª,æ•…ç”¨äºŒå…ƒç»„
 	2021/2/16 By-SilLea
 */
 #include<cstring>
@@ -29,14 +29,14 @@ void upgrade_ans(const Cup& u)
 	rec(0, 3, i)
 	{
 		int d = u.v[i];
-		if (ans[d] < 0 || ans[d] > u.dist)ans[d] = u.dist;//¸üĞÂÄ³±­×ÓdË®Á¿ÏÂµÄµ¹Ë®Á¿
+		if (ans[d] < 0 || ans[d] > u.dist)ans[d] = u.dist;//æ›´æ–°æŸæ¯å­dæ°´é‡ä¸‹çš„å€’æ°´é‡
 	}
 }
 void solve(int a, int b, int c, int d)
 {
-	cup[0] = a; cup[1] = b; cup[2] = c;//cup[3] ÓÃÀ´´æ´¢Èı¸ö±­×ÓµÄ×î´óÈİÁ¿
-	Cup start(0, 0, c, 0);//³õÊ¼×´Ì¬
-	priority_queue<Cup> q;//¸ù¾İÌâÄ¿ÒªÇó,´´½¨ÓÅÏÈ¶ÓÁĞ,µ¹Ë®Á¿ÉÙµÄÓÅÏÈ
+	cup[0] = a; cup[1] = b; cup[2] = c;//cup[3] ç”¨æ¥å­˜å‚¨ä¸‰ä¸ªæ¯å­çš„æœ€å¤§å®¹é‡
+	Cup start(0, 0, c, 0);//åˆå§‹çŠ¶æ€
+	priority_queue<Cup> q;//æ ¹æ®é¢˜ç›®è¦æ±‚,åˆ›å»ºä¼˜å…ˆé˜Ÿåˆ—,å€’æ°´é‡å°‘çš„ä¼˜å…ˆ
 	q.push(start);
 	while (!q.empty())
 	{
@@ -44,9 +44,9 @@ void solve(int a, int b, int c, int d)
 		upgrade_ans(u);
 		if (ans[d] > 0)break;
 		rec(0,3,i)
-			rec(0, 3, j)//i±­×Ó¸øj±­×Óµ¹Ë®
+			rec(0, 3, j)//iæ¯å­ç»™jæ¯å­å€’æ°´
 		{
-			if (i == j || u.v[i] == 0 || u.v[j] == cup[j])//i±­×ÓÎª¿Õ or j±­×ÓÒÑÂú
+			if (i == j || u.v[i] == 0 || u.v[j] == cup[j])//iæ¯å­ä¸ºç©º or jæ¯å­å·²æ»¡
 				continue;
 			int amount = min(cup[j], u.v[i] + u.v[j]) - u.v[j];
 			Cup u2;
@@ -61,15 +61,15 @@ void solve(int a, int b, int c, int d)
 			}
 		}
 	}
-	//´òÓ¡´ğ°¸
+	//æ‰“å°ç­”æ¡ˆ
 	while (true)
 	{
-		if (ans[d] >= 0)//´òÓ¡Ë®Á¿ÎªdÊ±µÄµ¹Ë®Á¿
+		if (ans[d] >= 0)//æ‰“å°æ°´é‡ä¸ºdæ—¶çš„å€’æ°´é‡
 		{
 			cout << ans[d] << " " << d << endl;
 			return;
 		}
-		d--;//Èç¹ûÃ»ÓĞd,ÔòÊä³ö½ÏĞ¡µÄ,¾¡Á¿½Ó½üdµÄd'µ¹Ë®Á¿
+		d--;//å¦‚æœæ²¡æœ‰d,åˆ™è¾“å‡ºè¾ƒå°çš„,å°½é‡æ¥è¿‘dçš„d'å€’æ°´é‡
 	}
 }
 void init()
@@ -79,7 +79,7 @@ void init()
 }
 int main()
 {
-	ios::sync_with_stdio(false);//ÓëstdioÈ¡Ïû°ó¶¨,Ìá¸ßiostreamµÄËÙ¶È
+	ios::sync_with_stdio(false);//ä¸stdioå–æ¶ˆç»‘å®š,æé«˜iostreamçš„é€Ÿåº¦
 	int t, a, b, c, d; cin >> t;
 	while (t--)
 	{
