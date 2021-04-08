@@ -10,19 +10,27 @@
 #include<cmath>
 using namespace std;
 const int maxn = 1e5 + 5;
-int n;
-string str;
+int n, k;
+int s[maxn];
 int main()
 {
-    while (cin >> n && n)
+    while (cin >> n >> k && n)
     {
-        cin >> str;
-        int dif = 1;
+        memset(s, 0, sizeof(s));
+        int sum = 0;
         for (int i = 0; i < n; i++)
+            cin >> s[i];
+        if (n <= k)
         {
-            dif += str[i] != str[n - i - 1];
+            cout << s[n - 1] << endl;
+            continue;
         }
-        cout << min(dif + 2, n) << endl;
+        int left = n - k;
+        for (int i = left; i < n && left * 2 - 1 - i >= 0; i++)
+        {
+            sum = max(sum, s[i] + s[left * 2 - 1 - i]);
+        }
+        cout << max(sum, s[n - 1]) << endl;
     }
     return 0;
 }
