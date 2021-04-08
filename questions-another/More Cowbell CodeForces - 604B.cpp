@@ -1,6 +1,5 @@
 /*
     More Cowbell CodeForces - 604B
-
     by - SilLea   2021/4/8
 */
 #include<algorithm>
