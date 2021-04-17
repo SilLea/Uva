@@ -1,7 +1,7 @@
 /*
     UVA 12333
 
-    by - SilLea  2021/4/16
+    by - SilLea  2021/4/17
 */
 #include<iostream>
 #include<algorithm>
@@ -16,9 +16,9 @@ typedef struct node1
     int    flag;
     node1* v[10];
 } tnode;
-tnode  dict[4000004];
-tnode* root;
-tnode* newnode()
+tnode  dict[4000004];//全部节点
+tnode* root;//根
+tnode* newnode()//创造节点
 {
     return &dict[cnt++];
 }
@@ -27,11 +27,11 @@ void TreeInsert(int* A, int len, int id)
     tnode* u = root;
     for (int i = 0; i < len; i++)
     {
-        if (!u->v[A[i]])
+        if (!u->v[A[i]])//如果没有子节点, 就创造新节点
             u->v[A[i]] = newnode();
-        if (!u->id && !u->flag)
+        if (!u->id && !u->flag)//如果该节点未被赋值, 赋值
             u->id = id;
-        u = u->v[A[i]];
+        u = u->v[A[i]];//下一个节点
     }
     if (!u->flag)
     {
@@ -53,20 +53,20 @@ void initial()
         p = i & 1, q = (i + 1) & 1;
         for (int j = s; j < l; j++)
         {
-            F[p][j] = F[p][j] + F[q][j];
+            F[p][j] = F[p][j] + F[q][j];//大数相加(最右边是第一位)
         }
         for (int j = s; j < l; j++)
         {
-            if (F[p][j] >= 10)
+            if (F[p][j] >= 10)//进位
             {
                 F[p][j + 1] += 1;
                 F[p][j] -= 10;
             }
         }
-        if (F[p][l])l++;
-        if (l - s > 51)s++;
+        if (F[p][l])l++;//长度增加
+        if (l - s > 51)s++;//只取前52位相加, 优化速度且保证答案正确
         r = l - 1, cont = 0;
-        while (cont < 40 && r >= 0)
+        while (cont < 40 && r >= 0)//将数正过来, 插入字典树
             present[cont++] = F[p][r--];
         TreeInsert(present, cont, i);
     }
@@ -78,8 +78,7 @@ int SearchTree(string& str)
     {
         if (!start->v[ID[str[i]]])
             return -1;
-        else
-            start = start->v[ID[str[i]]];
+        start = start->v[ID[str[i]]];
     }
     return start->id;
 }
@@ -92,7 +91,7 @@ int main()
     for (int kase = 1; kase <= t; kase++)
     {
         cin >> frt;
-        cout << "Case #" << kase << ": " <<SearchTree(frt) << endl;
+        cout << "Case #" << kase << ": " << SearchTree(frt) << endl;
     }
     return 0;
 }
